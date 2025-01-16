@@ -1,31 +1,38 @@
-# ResumeGenie
+## 主要功能：用户自定义的农历新年年画，用户在输出需求后生成年画，用户可以在图片上加上自己的logo还有祝福语
 
-Welcome to ResumeGenie, your go-to web application for creating professional resumes and portfolios effortlessly and get a shareable link!
+### 1. **系统架构设计**
 
-![resumegenie](https://github.com/ashish-makes/resume-generator/assets/106135144/fd48583f-1b2f-4011-9bc6-ec19d78e7a74)
+#### **前端：**
 
-## Introduction
+- 使用 HTML5、CSS 和 JavaScript 构建用户界面。
+- 采用 Canvas 或前端图像处理库（如 Fabric.js）实现动态预览和用户交互。
 
-ResumeGenie is a user-friendly web application designed to help you craft stunning resumes and portfolios that showcase your skills, experiences, and achievements. With ResumeGenie, you can create personalized resumes tailored to your career goals in just a few simple steps nd get a shareable link.
+#### **后端：**
 
-## Features
+- 使用 Django 提供 API 接口，处理用户上传的 logo 和祝福语。
+- 使用 Python 的图像处理库（如 Pillow）在后端合成最终的年画。
+- 提供生成的年画文件下载功能。
 
-- **Easy-to-Use Interface:** Our intuitive interface makes it easy for users of all skill levels to create professional resumes and portfolios.
-- **Multiple Sections:** Add sections for personal information, education, work experience, projects, skills, certifications, and more.
-- **Share Online:** Once you're satisfied with your resume, you can share it online with friends, recruiters, or potential employers.
+#### **存储：**
 
-![resume](https://github.com/ashish-makes/resume-generator/assets/106135144/52b6e931-6d45-4126-894a-ec31a31144b6)
+- 使用 Django 的文件上传功能存储用户上传的 logo。
+- 将生成的年画临时存储到服务器。
 
-## Getting Started
+---
 
-To get started with ResumeGenie, simply visit [ResumeGenie](https://resume-generator.2.us-1.fl0.io/) and start creating your resume. Enter your personal information, education, work experience, projects, skills, certifications, and any other relevant details. Choose a template that best suits your style and preferences. Once you're done, preview your resume to ensure everything looks great, and then share it online with anyone you like.
+### 2. **功能模块划分**
 
-## Contributing
-
-We welcome contributions from the community to help improve ResumeGenie and add new features. If you're interested in contributing, please fork the repository, make your changes, and submit a pull request.
-
-## License
-
-ResumeGenie is licensed under the [MIT License](LICENSE). Feel free to use, modify, and distribute the code for personal or commercial projects.
-
-Thank you for choosing ResumeGenie! We hope it helps you create the perfect resume and advance your career goals.
+1. **年画模板管理：**
+    
+    - 提供年画模板的选择功能（存储在服务器或数据库中）。
+2. **用户上传和输入：**
+    
+    - 上传 logo 图片。
+    - 输入祝福语。
+3. **动态合成：**
+    
+    - 后端使用 Pillow 合成用户内容到模板上。
+    - 或者前端使用 Canvas 实现实时预览，后端生成最终文件。
+4. **文件导出：**
+    
+    - 生成 PNG/JPG 或 PDF 格式的年画文件供用户下载。

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI 新年画生成器</title>
+    <style>
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+        .form-group {
+            margin: 20px 0;
+        }
+        textarea {
+            width: 100%;
+            max-width: 600px;
+            height: 100px;
+            margin: 10px 0;
+            padding: 10px;
+        }
+        button {
+            background-color: #e62e2e;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #cc1818;
+        }
+        .result-image {
+            margin-top: 20px;
+            max-width: 100%;
+        }
+        .loading {
+            display: none;
+            margin: 20px 0;
+        }
+        .options-group {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        .option-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            margin-top: 5px;
+        }
+        .logo-preview {
+            max-width: 150px;
+            max-height: 150px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            padding: 5px;
+            display: none;
+        }
+        .greeting-preview {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            position: relative;
+        }
+        .progress-container {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px auto;
+            display: none;
+        }
+        .progress-bar {
+            width: 100%;
+            height: 20px;
+            background-color: #f0f0f0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .progress {
+            width: 0%;
+            height: 100%;
+            background-color: #e62e2e;
+            transition: width 0.5s ease;
+        }
+        .progress-text {
+            text-align: center;
+            margin-top: 10px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>AI 新年画生成器</h1>
+        <p>描述您想要的新年画，AI将为您生成独特的中国风新年图片</p>
+        
+        <form id="imageForm" onsubmit="generateImage(event)">
+            <div class="form-group">
+                <label for="prompt">请描述您想要的新年画：</label><br>
+                <textarea id="prompt" name="prompt" placeholder="例如：传统中国风格的新年画，红色背景，金色福字，祥云，灯笼..."></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="greeting">自定义祝福语：</label><br>
+                <textarea id="greeting" name="greeting" placeholder="例如：恭贺新春，万事如意！"></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label for="userLogo">上传Logo（可选）：</label><br>
+                <input type="file" id="userLogo" name="userLogo" accept="image/*">
+                <div id="logoPreview" class="mt-2"></div>
+            </div>
+            
+            <div class="options-group">
+                <div class="option-item">
+                    <label for="quality">图片质量：</label>
+                    <select id="quality" name="quality">
+                        <option value="standard">标准</option>
+                        <option value="hd">高清</option>
+                    </select>
+                </div>
+                
+                <div class="option-item">
+                    <label for="size">图片尺寸：</label>
+                    <select id="size" name="size">
+                        <option value="1024x1024">正方形 (1024x1024)</option>
+                        <option value="1024x1792">竖版 (1024x1792)</option>
+                        <option value="1792x1024">横版 (1792x1024)</option>
+                    </select>
+                </div>
+                
+                <div class="option-item">
+                    <label for="style">图片风格：</label>
+                    <select id="style" name="style">
+                        <option value="vivid">生动</option>
+                        <option value="natural">自然</option>
+                    </select>
+                </div>
+            </div>
+            
+            <button type="submit">生成图片</button>
+        </form>
+
+        <div class="progress-container" id="progressContainer">
+            <div class="progress-bar">
+                <div class="progress" id="progressBar"></div>
+            </div>
+            <div class="progress-text" id="progressText">准备生成图片...</div>
+        </div>
+
+        <div id="result">
+            <div class="result-container" style="display: none;">
+                <h3>生成的贺卡</h3>
+                <img id="generatedImage" src="" alt="生成的贺卡" style="max-width: 100%; display: none;">
+                
+                <div class="email-form" style="margin-top: 20px;">
+                    <h4>通过邮件发送贺卡</h4>
+                    <div class="form-group">
+                        <label for="recipientEmail">收件人邮箱：</label>
+                        <input type="email" id="recipientEmail" class="form-control" placeholder="请输入收件人邮箱">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailSubject">邮件主题：</label>
+                        <input type="text" id="emailSubject" class="form-control" placeholder="新年贺卡">
+                    </div>
+                    <div class="form-group">
+                        <label for="emailMessage">邮件内容：</label>
+                        <textarea id="emailMessage" class="form-control" rows="3" placeholder="在此输入邮件正文内容"></textarea>
+                    </div>
+                    <button onclick="sendEmail()" class="btn btn-primary">发送贺卡</button>
+                </div>
+            </div>
+        </div>
+
+        <script>
+            async function generateImage(event) {
+                event.preventDefault();
+                
+                const prompt = document.getElementById('prompt').value;
+                const greeting = document.getElementById('greeting').value;
+                const logoFile = document.getElementById('userLogo').files[0];
+                const quality = document.getElementById('quality').value;
+                const size = document.getElementById('size').value;
+                const style = document.getElementById('style').value;
+                const progressContainer = document.getElementById('progressContainer');
+                const progressBar = document.getElementById('progressBar');
+                const progressText = document.getElementById('progressText');
+                const generatedImage = document.getElementById('generatedImage');
+                const resultContainer = document.querySelector('.result-container');
+                
+                if (!prompt) {
+                    alert('请描述您想要的新年画');
+                    return;
+                }
+                
+                progressContainer.style.display = 'block';
+                generatedImage.style.display = 'none';
+                resultContainer.style.display = 'none';
+
+                let progress = 0;
+                const progressInterval = setInterval(() => {
+                    if (progress < 90) {
+                        progress += Math.random() * 15;
+                        progress = Math.min(progress, 90);
+                        progressBar.style.width = `${progress}%`;
+                        
+                        if (progress < 30) {
+                            progressText.textContent = "正在分析您的需求...";
+                        } else if (progress < 60) {
+                            progressText.textContent = "正在构思图片元素...";
+                        } else {
+                            progressText.textContent = "正在生成图片...";
+                        }
+                    }
+                }, 500);
+
+                try {
+                    // 准备表单数据
+                    const formData = new FormData();
+                    formData.append('prompt', prompt);
+                    formData.append('greeting', greeting);
+                    if (logoFile) {
+                        formData.append('logo', logoFile);
+                    }
+                    formData.append('quality', quality);
+                    formData.append('size', size);
+                    formData.append('style', style);
+                    
+                    console.log('Sending data:', {
+                        prompt,
+                        greeting,
+                        quality,
+                        size,
+                        style,
+                        hasLogo: !!logoFile
+                    });
+                    
+                    // 发送请求
+                    const response = await fetch('/generate-festive-image/', {
+                        method: 'POST',
+                        body: formData
+                    });
+                    
+                    clearInterval(progressInterval);
+
+                    if (response.ok) {
+                        const data = await response.json();
+                        console.log('Response data:', data);  
+                        if (data.success) {
+                            console.log('Setting image URL:', data.image_url);  
+                            generatedImage.src = data.image_url;
+                            generatedImage.style.display = 'block';
+                            resultContainer.style.display = 'block';
+                            progressContainer.style.display = 'none';
+                            
+                            // 添加图片加载错误处理
+                            generatedImage.onerror = function() {
+                                console.error('Error loading image:', data.image_url);
+                                alert('图片加载失败，请重试');
+                            };
+                        } else {
+                            throw new Error(data.error || '生成图片失败');
+                        }
+                    } else {
+                        const errorData = await response.json().catch(() => ({}));
+                        console.error('Response error:', errorData);  
+                        throw new Error(errorData.error || '请求失败');
+                    }
+                } catch (error) {
+                    clearInterval(progressInterval);
+                    progressText.textContent = "生成图片失败，请重试";
+                    progressBar.style.backgroundColor = "#ff4444";
+                    console.error('Error:', error);
+                    alert('生成图片时发生错误，请重试');
+                }
+            }
+            
+            async function sendEmail() {
+                const recipientEmail = document.getElementById('recipientEmail').value;
+                const emailSubject = document.getElementById('emailSubject').value;
+                const emailMessage = document.getElementById('emailMessage').value;
+                const imageUrl = document.getElementById('generatedImage').src;
+                
+                if (!recipientEmail) {
+                    alert('请输入收件人邮箱');
+                    return;
+                }
+                
+                try {
+                    const response = await fetch('/send-festive-email/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({
+                            recipient_email: recipientEmail,
+                            subject: emailSubject || '新年贺卡',
+                            message: emailMessage,
+                            image_url: imageUrl
+                        })
+                    });
+                    
+                    const data = await response.json();
+                    if (data.success) {
+                        alert('贺卡已成功发送！');
+                    } else {
+                        throw new Error(data.error || '发送失败');
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    alert('发送贺卡时出现错误，请重试');
+                }
+            }
+            
+            // Logo预览功能
+            document.getElementById('userLogo').addEventListener('change', function(e) {
+                const preview = document.getElementById('logoPreview');
+                preview.innerHTML = '';
+                
+                if (this.files && this.files[0]) {
+                    const img = document.createElement('img');
+                    img.src = URL.createObjectURL(this.files[0]);
+                    img.className = 'logo-preview';
+                    img.style.display = 'block';
+                    preview.appendChild(img);
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>

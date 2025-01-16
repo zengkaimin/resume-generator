@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <style>
+        body {
+            font-family: "Microsoft YaHei", Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #fff7f7;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            color: #d4001d;
+            margin-bottom: 20px;
+        }
+        .content {
+            color: #333;
+            line-height: 1.6;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .greeting-image {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            margin: 20px auto;
+            display: block;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.1);
+        }
+        .message {
+            font-size: 16px;
+            color: #333;
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #fff9f9;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .footer {
+            text-align: center;
+            color: #888;
+            font-size: 0.9em;
+            margin-top: 20px;
+            border-top: 1px solid #eee;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>新年快乐 🎊</h1>
+            <h2>{{ year }}年春节贺卡</h2>
+        </div>
+        
+        <div class="content">
+            <img src="{{ image_url }}" alt="新年贺卡" class="greeting-image">
+            
+            <div class="message">
+                {{ message|linebreaks }}
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>祝您在{{ year }}年：</p>
+            <p>福如东海，寿比南山</p>
+            <p>阖家欢乐，万事如意</p>
+        </div>
+    </div>
+</body>
+</html>

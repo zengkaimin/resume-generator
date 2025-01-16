@@ -12,12 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 import os
 import dj_database_url
+from dotenv import load_dotenv
 
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -42,7 +44,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'main'
+    'main',
+    'storages'
 ]
 
 MIDDLEWARE = [
@@ -148,7 +151,43 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
+# Email settings
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.qq.com'  # QQ邮箱SMTP服务器
+EMAIL_PORT = 465  # QQ邮箱SMTP端口
+EMAIL_USE_SSL = True  # QQ邮箱需要使用SSL
+EMAIL_HOST_USER = '332481347@qq.com'  # 你的QQ邮箱
+EMAIL_HOST_PASSWORD = 'cgokslrnqxvocaec'  # 你的QQ邮箱授权码
+DEFAULT_FROM_EMAIL = '曾凯敏 <332481347@qq.com>'  # 发件人显示名称和邮箱
+
+# 文件上传配置
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+# Cloudflare R2 配置
+CLOUDFLARE_R2_ACCESS_KEY_ID = '645b3536c991b75fdafff1dcbf6500b9'  # 补全到32位
+CLOUDFLARE_R2_SECRET_ACCESS_KEY = 'd5dd04fe60231c84391e5c5f017813cb48c453d46baa040439b1d545931194b4'
+CLOUDFLARE_R2_ENDPOINT_URL = 'https://90419a8dbac89f01293b9c13de059474.r2.cloudflarestorage.com'
+CLOUDFLARE_R2_BUCKET_NAME = 'e-card'
+CLOUDFLARE_R2_PUBLIC_URL = 'https://pub-7de1d62108114959aacd2ffe8c24077c.r2.dev'
+
+# 默认文件存储设置
+DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+# AWS S3 兼容设置（用于R2）
+AWS_ACCESS_KEY_ID = CLOUDFLARE_R2_ACCESS_KEY_ID
+AWS_SECRET_ACCESS_KEY = CLOUDFLARE_R2_SECRET_ACCESS_KEY
+AWS_S3_ENDPOINT_URL = CLOUDFLARE_R2_ENDPOINT_URL
+AWS_STORAGE_BUCKET_NAME = CLOUDFLARE_R2_BUCKET_NAME
+AWS_S3_REGION_NAME = 'auto'
+AWS_DEFAULT_ACL = 'public-read'
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_FILE_OVERWRITE = True
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Monica API配置
+MONICA_API_KEY = os.getenv('MONICA_API_KEY')

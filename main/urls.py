@@ -1,5 +1,5 @@
 from django.urls import path
-from main import views
+from . import views
 
 urlpatterns = [
     path('', views.index, name='home'),
@@ -7,4 +7,7 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     path('builder/', views.builder, name='builder'),
     path('resume/<str:unique_identifier>/', views.resume, name='resume'),
+    path('generate-festive-image/', views.generate_festive_image, name='generate-festive-image'),
+    path('festive-maker/', views.festive_maker, name='festive-maker'),
+    path('send-festive-email/', views.send_festive_email, name='send-festive-email'),
 ]
