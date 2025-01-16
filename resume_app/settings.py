@@ -156,17 +156,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'  # QQ邮箱SMTP服务器
 EMAIL_PORT = 465  # QQ邮箱SMTP端口
 EMAIL_USE_SSL = True  # QQ邮箱需要使用SSL
-EMAIL_HOST_USER = '332481347@qq.com'  # 你的QQ邮箱
-EMAIL_HOST_PASSWORD = 'cgokslrnqxvocaec'  # 你的QQ邮箱授权码
-DEFAULT_FROM_EMAIL = '曾凯敏 <332481347@qq.com>'  # 发件人显示名称和邮箱
+EMAIL_HOST_USER = ''  # 你的QQ邮箱
+EMAIL_HOST_PASSWORD = ''  # 你的QQ邮箱授权码
+DEFAULT_FROM_EMAIL = ''  # 发件人显示名称和邮箱
 
 # 文件上传配置
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudflare R2 配置
-CLOUDFLARE_R2_ACCESS_KEY_ID = '645b3536c991b75fdafff1dcbf6500b9'  # 补全到32位
-CLOUDFLARE_R2_SECRET_ACCESS_KEY = 'd5dd04fe60231c84391e5c5f017813cb48c453d46baa040439b1d545931194b4'
+CLOUDFLARE_R2_ACCESS_KEY_ID = ''  # 补全到32位
+CLOUDFLARE_R2_SECRET_ACCESS_KEY = ''
 CLOUDFLARE_R2_ENDPOINT_URL = 'https://90419a8dbac89f01293b9c13de059474.r2.cloudflarestorage.com'
 CLOUDFLARE_R2_BUCKET_NAME = 'e-card'
 CLOUDFLARE_R2_PUBLIC_URL = 'https://pub-7de1d62108114959aacd2ffe8c24077c.r2.dev'
