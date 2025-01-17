@@ -1,8 +1,113 @@
 {% extends 'base.html' %}
 {% load static %}
 
-{% block title %}About{% endblock title %}
+{% block title %}About Us - Chinese New Year Art Generator{% endblock title %}
+
+{% block meta %}
+<meta name="description" content="Learn about our mission to blend traditional Chinese New Year culture with modern digital art. Discover how we help businesses and individuals create beautiful festive greetings.">
+<meta name="keywords" content="about us,chinese new year,digital art,festive greetings,company mission">
+{% endblock meta %}
+
+{% block extra_css %}
+<style>
+    .about-hero {
+        text-align: center;
+        padding: 80px 0;
+        background-color: #FAFAFA;
+    }
+    
+    .about-content {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 60px 20px;
+    }
+    
+    .mission-section {
+        margin: 40px 0;
+        padding: 40px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    
+    .values-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 30px;
+        margin: 40px 0;
+    }
+    
+    .value-card {
+        padding: 30px;
+        background: #fff;
+        border-radius: 10px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        text-align: center;
+    }
+    
+    .value-card svg {
+        width: 50px;
+        height: 50px;
+        margin-bottom: 20px;
+    }
+    
+    .chinese-red {
+        color: #DE2910;
+    }
+    
+    .highlight {
+        background: linear-gradient(120deg, rgba(222,41,16,0.1) 0%, rgba(222,41,16,0.1) 100%);
+        padding: 2px 5px;
+        border-radius: 3px;
+    }
+</style>
+{% endblock extra_css %}
 
 {% block content %}
-<h1>About page</h1>
+<main>
+    <section class="about-hero">
+        <div class="container">
+            <h1 class="chinese-red">About Ichinsese</h1>
+            <p>Bridging Tradition with Technology</p>
+        </div>
+    </section>
+
+    <section class="about-content">
+        <div class="mission-section">
+            <h2>Our Mission</h2>
+            <p>At Ichinsese, we're passionate about bringing traditional Chinese New Year celebrations into the digital age. Our mission is to help businesses and individuals create beautiful, meaningful festive greetings that honor tradition while embracing modern design.</p>
+        </div>
+
+        <div class="values-grid">
+            <div class="value-card">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z" fill="#DE2910"/>
+                </svg>
+                <h3>Tradition</h3>
+                <p>We honor and preserve traditional Chinese New Year customs through our digital art.</p>
+            </div>
+            <div class="value-card">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z" fill="#DE2910"/>
+                </svg>
+                <h3>Innovation</h3>
+                <p>We leverage modern technology to create unique and engaging festive experiences.</p>
+            </div>
+            <div class="value-card">
+                <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M12 22.75C6.07 22.75 1.25 17.93 1.25 12C1.25 6.07 6.07 1.25 12 1.25C17.93 1.25 22.75 6.07 22.75 12C22.75 17.93 17.93 22.75 12 22.75ZM12 2.75C6.9 2.75 2.75 6.9 2.75 12C2.75 17.1 6.9 21.25 12 21.25C17.1 21.25 21.25 17.1 21.25 12C21.25 6.9 17.1 2.75 12 2.75Z" fill="#DE2910"/>
+                </svg>
+                <h3>Community</h3>
+                <p>We bring people together through shared celebration of Chinese culture.</p>
+            </div>
+        </div>
+
+        <div class="mission-section">
+            <h2>Our Story</h2>
+            <p>Founded with a vision to modernize traditional festive greetings, Ichinsese has grown into a platform that serves thousands of users worldwide. We combine the rich symbolism of Chinese New Year with contemporary design principles to create artwork that resonates with both traditional and modern audiences.</p>
+            <br>
+            <p>Our team of designers and developers work tirelessly to ensure that every template we create maintains the authentic spirit of Chinese New Year while meeting the highest standards of modern digital design.</p>
+        </div>
+    </section>
+</main>
 {% endblock content %}

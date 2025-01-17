@@ -1,0 +1,419 @@
+/* 基础样式 */
+:root {
+    --primary-color: #e62e2e;
+    --primary-hover: #cc1818;
+    --secondary-color: #ffd700;
+    --text-color: #333;
+    --border-color: #ddd;
+    --background-light: #f8f9fa;
+    --shadow: 0 2px 4px rgba(0,0,0,0.1);
+    --transition: all 0.3s ease;
+}
+
+.festive-maker-content {
+    min-height: 100vh;
+    background-color: #fff;
+    padding: 2rem 0;
+}
+
+.festive-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+}
+
+/* 头部样式 */
+.festive-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.festive-header h1 {
+    color: var(--primary-color);
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    color: var(--text-color);
+    font-size: 1.1rem;
+    opacity: 0.8;
+}
+
+/* 表单样式 */
+.festive-form {
+    background: white;
+    border-radius: 10px;
+    box-shadow: var(--shadow);
+    padding: 2rem;
+}
+
+.form-section {
+    margin-bottom: 2rem;
+}
+
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    font-weight: 500;
+}
+
+.form-label i {
+    margin-right: 0.5rem;
+    color: var(--primary-color);
+}
+
+/* 文本输入框样式 */
+.festive-textarea {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    min-height: 120px;
+    resize: vertical;
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.festive-textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px rgba(230,46,46,0.1);
+}
+
+/* 选项网格样式 */
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+.option-card {
+    background: var(--background-light);
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: var(--transition);
+}
+
+.option-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+}
+
+.option-label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.festive-select {
+    width: 100%;
+    padding: 0.8rem;
+    border: 1px solid var(--border-color);
+    border-radius: 6px;
+    background-color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.festive-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Logo上传区域样式 */
+.logo-upload {
+    margin-top: 2rem;
+}
+
+.upload-area {
+    position: relative;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: var(--transition);
+}
+
+.upload-area:hover {
+    border-color: var(--primary-color);
+}
+
+.upload-placeholder {
+    color: #666;
+}
+
+.upload-placeholder i {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--primary-color);
+}
+
+.file-input {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.logo-preview {
+    max-width: 200px;
+    max-height: 200px;
+    margin-top: 1rem;
+    border-radius: 4px;
+    display: none;
+}
+
+/* 按钮样式 */
+.action-section {
+    text-align: center;
+    margin: 4rem auto;
+    max-width: 400px;
+}
+
+.festive-button {
+    background: linear-gradient(135deg, var(--primary-color), #ff4b4b);
+    color: white;
+    padding: 1.2rem 3rem;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    white-space: nowrap;
+    animation: pulse 2s infinite;
+}
+
+.festive-button:hover {
+    background: linear-gradient(135deg, #ff4b4b, var(--primary-color));
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(230,46,46,0.2);
+}
+
+.festive-button:active {
+    transform: translateY(-1px);
+}
+
+.festive-button i {
+    font-size: 1.4rem;
+    transition: transform 0.3s ease;
+}
+
+.festive-button:hover i {
+    transform: rotate(180deg);
+}
+
+/* 进度条样式 */
+.progress-container {
+    display: none;
+    margin: 2rem 0;
+}
+
+.progress-status {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+}
+
+.progress-bar {
+    height: 8px;
+    background-color: var(--background-light);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.progress {
+    width: 0%;
+    height: 100%;
+    background-color: var(--primary-color);
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    text-align: center;
+    margin-top: 1rem;
+    color: var(--text-color);
+}
+
+/* 结果展示区域 */
+.result-section {
+    margin-top: 3rem;
+}
+
+.loading {
+    display: none;
+    text-align: center;
+}
+
+.loading-spinner {
+    border: 4px solid var(--background-light);
+    border-top: 4px solid var(--primary-color);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.result-display {
+    text-align: center;
+}
+
+.result-image {
+    max-width: 100%;
+    border-radius: 8px;
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+    display: none;
+}
+
+.share-options {
+    display: none;
+    gap: 1rem;
+    justify-content: center;
+}
+
+/* 分享模态框 */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 1000;
+}
+
+.modal-content {
+    position: relative;
+    background: white;
+    max-width: 500px;
+    margin: 10vh auto;
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.modal h3 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: var(--text-color);
+}
+
+.share-methods {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.share-btn {
+    padding: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    color: white;
+}
+
+.share-btn i {
+    font-size: 1.5rem;
+}
+
+.share-btn.wechat {
+    background-color: #07c160;
+}
+
+.share-btn.weibo {
+    background-color: #e6162d;
+}
+
+.share-btn.email {
+    background-color: #4a90e2;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: #666;
+    transition: var(--transition);
+}
+
+.modal-close:hover {
+    color: var(--primary-color);
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+    .festive-container {
+        padding: 0 1rem;
+    }
+
+    .festive-header h1 {
+        font-size: 2rem;
+    }
+
+    .options-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .share-methods {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* 动画效果 */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.fade-in {
+    animation: fadeIn 0.3s ease-in-out;
+}
+
+/* 添加脉冲动画效果 */
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(230,46,46,0.4);
+    }
+    70% {
+        box-shadow: 0 0 0 10px rgba(230,46,46,0);
+    }
+    100% {
+        box-shadow: 0 0 0 0 rgba(230,46,46,0);
+    }
+}

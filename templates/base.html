@@ -5,21 +5,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}"}>
-    <title>{% block title %}{% endblock title %} - Resume App</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}{% endblock title %}</title>
+    {% block extra_css %}{% endblock extra_css %}
 </head>
 <body>
-
     <header>
         <!-- Navigation bar code goes here -->
         <nav class="navbar container">
-            <span><strong>ResumeGenie</strong></span>
+            <span><strong>iChinese.ing</strong></span>
             <ul class="navbar-items">
                 <li><a href="/">Home</a></li>
-                <li><a href="/festive-maker">新年画生成器</a></li>
-                <li><a target="_blank" href="https://github.com/ashish-makes/resume-generator">About</a></li>
-                <li><a href="/builder">Build your resume</a></li>
-                <li><a target="_blank" href="https://developerashish.vercel.app/contact">Contact</a></li>
+                <li><a href="/festive-maker">Festive Art Maker</a></li>
+                <li><a href="/about">About</a></li>
+           
             </ul>
             <div class="mob-menu-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="-5 -7 24 24" width="28" fill="#5c5c5ce6"><path d="M1 0h5a1 1 0 1 1 0 2H1a1 1 0 1 1 0-2zm7 8h5a1 1 0 0 1 0 2H8a1 1 0 1 1 0-2zM1 4h12a1 1 0 0 1 0 2H1a1 1 0 1 1 0-2z"></path></svg>
@@ -51,18 +50,18 @@
         <!-- Footer code goes here -->
         <div class="container footer-content">
             <div>
-                <h2>ResumeGenie</h2>
+                <h2>iChinese.ing</h2>
             </div>
             <div>
                 <ul>
-                    <li><a href="/builder">Build you resume</a></li>
-                    <li><a target="_blank" href="https://github.com/ashish-makes">Other products</a></li>
+                    <li><a href="/festive-maker">Festive Art Maker</a></li>
+                    
                 </ul>
             </div>
             <div>
                 <ul>
-                    <li><a target="_blank" href="https://github.com/ashish-makes/resume-generator">About</a></li>
-                    <li><a target="_blank" href="https://developerashish.vercel.app/contact">Contact</a></li>
+                    <li><a href="/about">About</a></li>
+                   
                 </ul>
             </div>
         </div>
@@ -71,5 +70,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" integrity="sha512-7eHRwcbYkK4d9g/6tD/mhkf++eoTHwpNM9woBxtPUBWm67zeAfFC+HrdoE2GanKeocly/VxeLvIqwvCdk7qScg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" integrity="sha512-onMTRKJBKz8M1TnqqDuGBlowlH0ohFzMXYRNebz+yOcc5TQr/zAKsthzhuv0hiyUKEiQEQXEynnXCvNTOk50dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <script src="{% static 'js/script.js' %}"></script>
+    {% block extra_js %}{% endblock extra_js %}
 </body>
 </html>
