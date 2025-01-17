@@ -393,17 +393,25 @@ def generate_festive_image(request):
         
         # 生成唯一的文件名并保存到R2
         unique_filename = f"generated/festive_{uuid.uuid4()}.png"
-        saved_path = r2_storage.save(unique_filename, ContentFile(output.getvalue()))
-        
-        # 构建完整的公开访问URL
-        image_url = f"{settings.CLOUDFLARE_R2_PUBLIC_URL}/{saved_path}"
-        
-        print(f"Generated image URL: {image_url}")  # 添加调试信息
-        
-        return JsonResponse({
-            'success': True,
-            'image_url': image_url
-        })
+        print(f"Saving image to R2 with filename: {unique_filename}")  
+        try:
+            saved_path = r2_storage.save(unique_filename, ContentFile(output.getvalue()))
+            print(f"Successfully saved image to R2 at path: {saved_path}")  
+            
+            # 构建完整的公开访问URL
+            image_url = f"{settings.CLOUDFLARE_R2_PUBLIC_URL}/{saved_path}"
+            print(f"Generated image URL: {image_url}")  
+            
+            return JsonResponse({
+                'success': True,
+                'image_url': image_url
+            })
+        except Exception as e:
+            print(f"Error saving image to R2: {str(e)}")  
+            return JsonResponse({
+                'success': False,
+                'error': 'Failed to save image'
+            })
         
     except Exception as e:
         print(f"Error generating image: {str(e)}")

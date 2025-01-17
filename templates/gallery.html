@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}图片画廊 | Chinese New Year Art Generator{% endblock title %}
+
+{% block extra_css %}
+<style>
+    .gallery {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 20px;
+        padding: 20px;
+    }
+    .gallery-item {
+        position: relative;
+        overflow: hidden;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease;
+    }
+    .gallery-item:hover {
+        transform: translateY(-5px);
+    }
+    .gallery-item img {
+        width: 100%;
+        height: 300px;
+        object-fit: cover;
+        display: block;
+    }
+    .loading {
+        text-align: center;
+        padding: 20px;
+        display: none;
+    }
+</style>
+{% endblock extra_css %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center my-4">生成作品展示</h1>
+    <div class="gallery" id="gallery">
+        {% for image in images %}
+        <div class="gallery-item">
+            <img src="{{ image.url }}" alt="Festive Art" loading="lazy">
+        </div>
+        {% endfor %}
+    </div>
+    <div class="loading" id="loading">
+        <p>加载中...</p>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    let page = 1;
+    let loading = false;
+    const gallery = document.getElementById('gallery');
+    const loadingDiv = document.getElementById('loading');
+
+    function loadMoreImages() {
+        if (loading) return;
+        loading = true;
+        loadingDiv.style.display = 'block';
+
+        fetch(`/api/gallery-images/?page=${page}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.images.length > 0) {
+                    data.images.forEach(image => {
+                        const div = document.createElement('div');
+                        div.className = 'gallery-item';
+                        div.innerHTML = `
+                            <img src="${image.url}" alt="Festive Art" loading="lazy">
+                        `;
+                        gallery.appendChild(div);
+                    });
+                    page++;
+                }
+                loading = false;
+                loadingDiv.style.display = 'none';
+            })
+            .catch(error => {
+                console.error('Error loading images:', error);
+                loading = false;
+                loadingDiv.style.display = 'none';
+            });
+    }
+
+    // 监听滚动事件
+    window.addEventListener('scroll', () => {
+        if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 1000) {
+            loadMoreImages();
+        }
+    });
+});
+</script>
+{% endblock content %}

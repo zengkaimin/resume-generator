@@ -14,12 +14,12 @@ import os
 import dj_database_url
 from dotenv import load_dotenv
 
+load_dotenv()  # 加载.env文件中的环境变量
+
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -30,9 +30,9 @@ SECRET_KEY = 'django-insecure-jd0w#w+k%@zdwnuiaad^xe7q)abah3f)j3@x(tenk^rvsze^-q
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-CSRF_TRUSTED_ORIGINS = ['https://resume-generator.2.us-1.fl0.io']
+CSRF_TRUSTED_ORIGINS = ['https://ichinese.ing', 'http://localhost:8000']
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -90,22 +90,20 @@ WSGI_APPLICATION = 'resume_app.wsgi.application'
 #     }
 # }
 
-DATABASE_URL = 'postgres://fl0user:uGZ5N6rOyLUR@ep-sweet-credit-a5vdcznr.us-east-2.aws.neon.fl0.io:5432/resume-db?sslmode=require'
+# DATABASE_URL = 'postgres://fl0user:uGZ5N6rOyLUR@ep-sweet-credit-a5vdcznr.us-east-2.aws.neon.fl0.io:5432/resume-db?sslmode=require'
 
-# DATABASES = {
+
+
+# if not DEBUG:
+#     DATABASES = {
 #     'default': dj_database_url.config(default=DATABASE_URL)
 # }
-
-if not DEBUG:
-    DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL)
-}
-else:
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': 'db.sqlite3',
-        }}
+# else:
+DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': 'db.sqlite3',
+            }}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -156,23 +154,23 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.qq.com'  # QQ邮箱SMTP服务器
 EMAIL_PORT = 465  # QQ邮箱SMTP端口
 EMAIL_USE_SSL = True  # QQ邮箱需要使用SSL
-EMAIL_HOST_USER = ''  # 你的QQ邮箱
-EMAIL_HOST_PASSWORD = ''  # 你的QQ邮箱授权码
-DEFAULT_FROM_EMAIL = ''  # 发件人显示名称和邮箱
+EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_HOST_PASSWORD')
+DEFAULT_FROM_EMAIL = os.getenv('DEFAULT_FROM_EMAIL')
 
 # 文件上传配置
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Cloudflare R2 配置
-CLOUDFLARE_R2_ACCESS_KEY_ID = ''  # 补全到32位
-CLOUDFLARE_R2_SECRET_ACCESS_KEY = ''
+CLOUDFLARE_R2_ACCESS_KEY_ID = os.getenv('CLOUDFLARE_R2_ACCESS_KEY_ID')
+CLOUDFLARE_R2_SECRET_ACCESS_KEY = os.getenv('CLOUDFLARE_R2_SECRET_ACCESS_KEY')
 CLOUDFLARE_R2_ENDPOINT_URL = 'https://90419a8dbac89f01293b9c13de059474.r2.cloudflarestorage.com'
 CLOUDFLARE_R2_BUCKET_NAME = 'e-card'
 CLOUDFLARE_R2_PUBLIC_URL = 'https://pub-7de1d62108114959aacd2ffe8c24077c.r2.dev'
 
 # 默认文件存储设置
-DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+DEFAULT_FILE_STORAGE = 'main.storage.CloudflareR2Storage'
 
 # AWS S3 兼容设置（用于R2）
 AWS_ACCESS_KEY_ID = CLOUDFLARE_R2_ACCESS_KEY_ID
